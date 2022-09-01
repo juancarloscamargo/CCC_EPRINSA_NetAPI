@@ -2,6 +2,7 @@
 using System;
 using VI.Base;
 
+
 namespace QBM.CompositionApi.EPRINSA
 {
     public class BasicSqlMethod : IApiProvider
