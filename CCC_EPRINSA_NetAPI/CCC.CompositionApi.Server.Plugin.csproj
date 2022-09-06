@@ -7,8 +7,8 @@
     <ProjectGuid>{DA7019BD-C164-45E8-A5DE-FA2C1BD4A4BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCC.CompositionApi.Server.Plugin</RootNamespace>
-    <AssemblyName>CCC.CompositionApi.Server.Plugin</AssemblyName>
+    <RootNamespace>CCC.CompositionApi.Server.PlugIn</RootNamespace>
+    <AssemblyName>CCC.CompositionApi.Server.PlugIn</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,6 +33,12 @@
   <ItemGroup>
     <Reference Include="QBM.CompositionApi.Server">
       <HintPath>C:\Program Files\One Identity\One Identity Manager\QBM.CompositionApi.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="QER.CompositionApi">
+      <HintPath>C:\Program Files\One Identity\One Identity Manager\QER.CompositionApi.dll</HintPath>
+    </Reference>
+    <Reference Include="QER.CompositionApi.Server.PlugIn">
+      <HintPath>C:\Program Files\One Identity\One Identity Manager\QER.CompositionApi.Server.PlugIn.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

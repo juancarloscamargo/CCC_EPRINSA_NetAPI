@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCC.CompositionApi.Server.Plugin", "CCC_EPRINSA_NetAPI\CCC.CompositionApi.Server.Plugin.csproj", "{DA7019BD-C164-45E8-A5DE-FA2C1BD4A4BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCC.CompositionApi.Server.PlugIn", "CCC_EPRINSA_NetAPI\CCC.CompositionApi.Server.PlugIn.csproj", "{DA7019BD-C164-45E8-A5DE-FA2C1BD4A4BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

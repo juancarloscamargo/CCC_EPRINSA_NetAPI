@@ -1,19 +1,24 @@
 ﻿using QBM.CompositionApi.Definition;
+
 using System;
 using VI.Base;
+using QBM.CompositionApi.ApiManager;
+using QER.CompositionApi.Portal;
 
 
-namespace QBM.CompositionApi.EPRINSA
+
+
+namespace QBM.CompositionApi
 {
-    public class BasicSqlMethod : IApiProvider
+    public class Eprinsa : IApiProviderFor<PortalApiProject>
     {
         public void Build(IApiBuilder builder)
         {
-            builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
-
+            builder.AddMethod(Method.Define("ccc/ObtenerDatosOTP")
                 // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
                 .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecute)
                 .WithParameter("CentralAccount")
+                .AllowUnauthenticated()
 
                 // Define the result schema columns and data types
                 .WithResultColumns(
@@ -23,6 +28,15 @@ namespace QBM.CompositionApi.EPRINSA
                 new SqlResultColumn("CustomProperty04", ValType.String)
                 ));
 
+            builder.AddMethod(Method.Define("helloworld")
+               .AllowUnauthenticated()
+               .HandleGet(qr => new DataObject { Message = "Hello world!" }));
+
+
         }
+    }
+    public class DataObject
+    {
+        public string Message { get; set; }
     }
 }
