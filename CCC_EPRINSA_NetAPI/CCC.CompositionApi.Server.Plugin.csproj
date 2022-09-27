@@ -7,8 +7,8 @@
     <ProjectGuid>{DA7019BD-C164-45E8-A5DE-FA2C1BD4A4BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCC.CompositionApi.Server.PlugIn</RootNamespace>
-    <AssemblyName>CCC.CompositionApi.Server.PlugIn</AssemblyName>
+    <RootNamespace>CCC.CompositionApi.Server.Plugin</RootNamespace>
+    <AssemblyName>CCC.CompositionApi.Server.Plugin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -29,6 +29,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="QBM.CompositionApi.Server">

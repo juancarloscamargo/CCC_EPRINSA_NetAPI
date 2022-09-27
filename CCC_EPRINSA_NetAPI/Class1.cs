@@ -17,10 +17,10 @@ using QBM.CompositionApi.Session;
 
 
 
-namespace QER.CompositionApi.Eprinsa 
+namespace CCC.CompositionApi.Server.Plugin
 {
 
-    public class CCC_PasswordPortalApiProject : IMethodSetProvider
+    public class CCC : IMethodSetProvider
     {
         private class _ConfigureApiProject : IApiProvider
         {
@@ -30,14 +30,14 @@ namespace QER.CompositionApi.Eprinsa
             }
         }
         private readonly MethodSet _project;
-        public CCC_PasswordPortalApiProject(IResolve resolver)
+        public CCC(IResolve resolver)
         {
             _project = new MethodSet
             {
-                AppId = "passwordreset",
-                Module = "QER"
+                AppId = "eprinsa",
+                Module = ""
             };
-            IApiProvider[] second = resolver.Resolve<IExtensibilityService>().FindAttributeBasedApiProviders<CCC_PasswordPortalApiProject>();
+            IApiProvider[] second = resolver.Resolve<IExtensibilityService>().FindAttributeBasedApiProviders<CCC>();
             _project.Configure(resolver, new IApiProvider[3]
             {
                 new _ConfigureApiProject(),
@@ -57,7 +57,7 @@ namespace QER.CompositionApi.Eprinsa
 
 
 
-    public class Eprinsa : IApiProviderFor<CCC_PasswordPortalApiProject>
+    public class Eprinsa : IApiProviderFor<CCC>
         {
             public void Build(IApiBuilder builder)
             {
@@ -68,7 +68,7 @@ namespace QER.CompositionApi.Eprinsa
                     // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
                     .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecute)
                     .WithParameter("CentralAccount")
-                    //.AllowUnauthenticated()
+                    .AllowUnauthenticated()
 
                     // Define the result schema columns and data types
                     .WithResultColumns(
