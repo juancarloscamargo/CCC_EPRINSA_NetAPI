@@ -1,6 +1,8 @@
 ﻿using QBM.CompositionApi.Definition;
 using VI.Base;
 using QBM.CompositionApi.ApiManager;
+using QBM.CompositionApi.Crud;
+using VI.DB.Entities;
 
 public class Eprinsa : IApiProvider
 {
@@ -13,7 +15,7 @@ public class Eprinsa : IApiProvider
             // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
             .AllowUnauthenticated()
             .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecute)
-            .WithParameter("CentralAccount")
+            //.WithParameter("CentralAccount")
             
 
             // Define the result schema columns and data types
@@ -40,7 +42,11 @@ public class Eprinsa : IApiProvider
                 })
             .HandleGet(qr => new DataObject { Message = "Hello world!" }));
 
-
+        builder.AddMethod(Method.Define("example")
+               .AllowUnauthenticated()
+               .FromTable("Person")
+               .EnableRead()
+               .WithClause(new LimitedSqlWhereClause("CCC-91A6C808737E344FA0502A4F938B9FD7")));
     }
 }
 public class DataObject
