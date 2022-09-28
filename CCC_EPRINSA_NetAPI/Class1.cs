@@ -12,52 +12,46 @@ using QBM.CompositionApi.ApiManager;
 
 using QBM.CompositionApi.Captcha;
 using QBM.CompositionApi.Config;
-using QBM.CompositionApi.Session;
-
-
-
-
-namespace CCC.CompositionApi.Server.Plugin
+namespace QBM.CompositionApi
 {
+    using System;
+    using System.Linq;
+    using VI.Base;
+    using VI.DB;
+    using VI.DB.Entities;
+    using VI.DB.Sync;
+    using NLog;
+    using QBM.CompositionApi.Definition;
+    using QBM.CompositionApi.Dto;
 
-    public class CCC : IMethodSetProvider
+
+    public class CCC_Eprinsa_API
     {
-        private class _ConfigureApiProject : IApiProvider
+
+        private QBM.CompositionApi.Definition.MethodSet _project;
+
+
+        public CCC_Eprinsa_API(VI.Base.IResolve resolver)
         {
-            public void Build(IApiBuilder builder)
+            _project = new QBM.CompositionApi.Definition.MethodSet();
+            _project.AppId = "apieprinsa";
+            _project.Uid = "CCC-091601C5235CCA488AA2974CF9DBC726";
+            _project.Configure(resolver, new QBM.CompositionApi.Definition.IApiProvider[0]);
+            QBM.CompositionApi.Session.SessionAuthDbConfig authConfig = new QBM.CompositionApi.Session.SessionAuthDbConfig();
+            authConfig.AuthenticationType = QBM.CompositionApi.Config.AuthType.Default;
+            authConfig.Product = null;
+            authConfig.AdditionalAuthProps = null;
+            _project.SessionConfig = authConfig;
+        }
+
+        public QBM.CompositionApi.Definition.IMethodSet Project
+        {
+            get
             {
-                builder.Resolver.Resolve<IMethodSetSettings>().ThrowExceptionOnUnknownUrlParameters = true;
+                return _project;
             }
         }
-        private readonly MethodSet _project;
-        public CCC(IResolve resolver)
-        {
-            _project = new MethodSet
-            {
-                AppId = "eprinsa",
-                Module = ""
-            };
-            IApiProvider[] second = resolver.Resolve<IExtensibilityService>().FindAttributeBasedApiProviders<CCC>();
-            _project.Configure(resolver, new IApiProvider[3]
-            {
-                new _ConfigureApiProject(),
-                new RecaptchaApiProvider(),
-                new MultiLanguageConfigApi()
-            }.Concat(second));
-            IApiServerConfig config = resolver.Resolve<IApiServerConfig>();
-        }
-
-        public Task<IEnumerable<IMethodSet>> GetMethodSetsAsync(CancellationToken ct = default)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    
-
-
-
-    public class Eprinsa : IApiProviderFor<CCC>
+        public class Eprinsa : IApiProvider
         {
             public void Build(IApiBuilder builder)
             {
@@ -90,3 +84,9 @@ namespace CCC.CompositionApi.Server.Plugin
             public string Message { get; set; }
         }
     }
+}
+
+  
+
+
+
