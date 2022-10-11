@@ -40,7 +40,7 @@ namespace QBM.CompositionApi
         {
             var methodSet = new MethodSet
             {
-                AppId = "apieprinsa",
+                AppId = "apieprinsa22",
                 SessionConfig = new SessionAuthDbConfig {
                     AuthenticationType = AuthType.AllManualModules,
                     
