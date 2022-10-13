@@ -4,26 +4,26 @@ using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Crud;
 using VI.DB.Entities;
 
-public class Eprinsa : IApiProvider
+public class APIEprinsa : IApiProvider
 {
     public void Build(IApiBuilder builder)
     {
 
 
 
-        builder.AddMethod(Method.Define("ObtenerDatosOTP")
+        builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
             // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
             .AllowUnauthenticated()
             .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecute)
-            //.WithParameter("CentralAccount")
+            .WithParameter("cuenta")
             
 
-            // Define the result schema columns and data types
+            // Define the result schema columns and data type
             .WithResultColumns(
-            new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
-            new SqlResultColumn("PhoneMobile", ValType.String),
-            new SqlResultColumn("CustomProperty08", ValType.String),
-            new SqlResultColumn("CustomProperty04", ValType.String)
+            new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String)
+            //new SqlResultColumn("PhoneMobile", ValType.Text),
+            //new SqlResultColumn("CustomProperty08", ValType.String),
+            //new SqlResultColumn("CustomProperty04", ValType.String)
             ));
 
         builder.AddMethod(Method.Define("helloworld")
@@ -42,11 +42,17 @@ public class Eprinsa : IApiProvider
                 })
             .HandleGet(qr => new DataObject { Message = "Hello world!" }));
 
-        builder.AddMethod(Method.Define("example")
-               .AllowUnauthenticated()
-               .FromTable("Person")
-               .EnableRead()
-               .WithClause(new LimitedSqlWhereClause("CCC-91A6C808737E344FA0502A4F938B9FD7")));
+        
+
+        builder.AddMethod(Method.Define("sql/changecount")
+
+    // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
+    .HandleGetBySqlStatement("SystemConfig_ChangeCount", SqlStatementType.SqlExecute)
+
+    // Define the result schema columns and data types
+    .WithResultColumns(new SqlResultColumn("TableName", ValType.String),
+        new SqlResultColumn("Count", ValType.Int)));
+
     }
 }
 public class DataObject
