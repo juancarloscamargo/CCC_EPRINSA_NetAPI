@@ -4,7 +4,7 @@ using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Crud;
 using VI.DB.Entities;
 
-public class APIEprinsa : IApiProvider
+public class APIEprinsa : IApiProvider  
 {
     public void Build(IApiBuilder builder)
     {

@@ -26,7 +26,7 @@
     <ReferencePath>c:\program files\One Identity\One Identity Manager</ReferencePath>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>C:\Program Files\One Identity\One Identity Manager\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
