@@ -20,10 +20,10 @@ public class APIEprinsa : IApiProvider
 
             // Define the result schema columns and data type
             .WithResultColumns(
-            new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String)
-            //new SqlResultColumn("PhoneMobile", ValType.Text),
-            //new SqlResultColumn("CustomProperty08", ValType.String),
-            //new SqlResultColumn("CustomProperty04", ValType.String)
+            new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
+            new SqlResultColumn("PhoneMobile", ValType.Text),
+            new SqlResultColumn("CustomProperty08", ValType.String),
+            new SqlResultColumn("CustomProperty04", ValType.String)
             ));
 
         builder.AddMethod(Method.Define("helloworld")
