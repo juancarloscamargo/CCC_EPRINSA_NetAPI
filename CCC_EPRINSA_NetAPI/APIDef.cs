@@ -42,10 +42,10 @@ namespace QBM.CompositionApi
             {
                 AppId = "APIeprinsa",
                 SessionConfig = new SessionAuthDbConfig {
-                    AuthenticationType = AuthType.AllManualModules,
                     
                     
-                    AllowPersistentAuth = true
+                    
+                    
                     
                 }
             };

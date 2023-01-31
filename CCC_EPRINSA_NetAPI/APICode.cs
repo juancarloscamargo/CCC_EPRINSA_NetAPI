@@ -14,8 +14,8 @@ public class APIEprinsa : IApiProvider
         builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
             // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
             .AllowUnauthenticated()
-            .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecute)
-            .WithParameter("cuenta")
+            .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecuteScalar)
+            .WithParameter("@CentralAccount")
             
 
             // Define the result schema columns and data type
