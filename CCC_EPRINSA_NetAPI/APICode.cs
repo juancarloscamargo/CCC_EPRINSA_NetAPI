@@ -1,30 +1,28 @@
 ﻿using QBM.CompositionApi.Definition;
+
 using VI.Base;
 using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Crud;
 using VI.DB.Entities;
 
-public class APIEprinsa : IApiProvider  
+public class APIEprinsaRest : IApiProvider  
 {
     public void Build(IApiBuilder builder)
     {
 
 
 
-        //builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
+        builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
         // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
-        //         .AllowUnauthenticated()
-        //       .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecuteScalar)
-        //     .WithParameter("@CentralAccount")
+                 .AllowUnauthenticated()
+             .HandleGetBySqlStatement("QER_CCC_Person_GetSecondaryEmailAddress", SqlStatementType.SqlExecute)
+             .WithParameter("CentralAccount")
 
 
         // Define the result schema columns and data type
-        //        .WithResultColumns(
-        //  new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
-        // new SqlResultColumn("PhoneMobile", ValType.Text),
-        // new SqlResultColumn("CustomProperty08", ValType.String),
-        //  new SqlResultColumn("CustomProperty04", ValType.String)
-        //       ));
+                .WithResultColumns(
+          new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String)
+                        ));
 
         builder.AddMethod(Method.Define("helloworld")
            .AllowUnauthenticated()

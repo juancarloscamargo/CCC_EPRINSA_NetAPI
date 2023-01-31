@@ -23,15 +23,15 @@ namespace QBM.CompositionApi
     {
         public IMethodSetProvider Build(IResolve resolver)
         {
-            return new ApiSamples(resolver);
+            return new APIEprinsa(resolver);
         }
     }
 
-    internal class ApiSamples : IMethodSetProvider
+    internal class APIEprinsa : IMethodSetProvider
     {
         private readonly IResolve _resolver;
 
-        public ApiSamples(IResolve resolver)
+        public APIEprinsa(IResolve resolver)
         {
             _resolver = resolver;
         }
@@ -40,15 +40,12 @@ namespace QBM.CompositionApi
         {
             var methodSet = new MethodSet
             {
-                AppId = "APIeprinsa",
-                SessionConfig = new SessionAuthDbConfig {
-                    
-                    
-                    
-                    
-                    
-                }
-            };
+                AppId = "APIEprinsa",
+                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.AllManualModules }
+
+
+
+                };
 
             // Include all classes in this assembly that implement IApiProvider
             methodSet.Configure(_resolver, Assembly.GetExecutingAssembly().GetTypes()
