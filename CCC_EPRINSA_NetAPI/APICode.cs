@@ -11,20 +11,20 @@ public class APIEprinsa : IApiProvider
 
 
 
-        builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
-            // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
-            .AllowUnauthenticated()
-            .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecuteScalar)
-            .WithParameter("@CentralAccount")
-            
+        //builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
+        // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
+        //         .AllowUnauthenticated()
+        //       .HandleGetBySqlStatement("QER_CCC_Person_GetOTPOptions", SqlStatementType.SqlExecuteScalar)
+        //     .WithParameter("@CentralAccount")
 
-            // Define the result schema columns and data type
-            .WithResultColumns(
-            new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
-            new SqlResultColumn("PhoneMobile", ValType.Text),
-            new SqlResultColumn("CustomProperty08", ValType.String),
-            new SqlResultColumn("CustomProperty04", ValType.String)
-            ));
+
+        // Define the result schema columns and data type
+        //        .WithResultColumns(
+        //  new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
+        // new SqlResultColumn("PhoneMobile", ValType.Text),
+        // new SqlResultColumn("CustomProperty08", ValType.String),
+        //  new SqlResultColumn("CustomProperty04", ValType.String)
+        //       ));
 
         builder.AddMethod(Method.Define("helloworld")
            .AllowUnauthenticated()
