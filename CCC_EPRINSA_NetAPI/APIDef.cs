@@ -19,46 +19,50 @@ using System;
 
 namespace QBM.CompositionApi
 {
-    public class PluginMethodSetProvider : IPlugInMethodSetProvider
+    public class EprinsaAPI : IMethodSetProvider
     {
-        public IMethodSetProvider Build(IResolve resolver)
-        {
-            return new APIEprinsa(resolver);
-        }
-    }
+        private readonly MethodSet _project;
 
-    internal class APIEprinsa : IMethodSetProvider
-    {
-        private readonly IResolve _resolver;
-
-        public APIEprinsa(IResolve resolver)
+        public EprinsaAPI(IResolve resolver)
         {
-            _resolver = resolver;
+            _project = new MethodSet
+            {
+                AppId = "EprinsaAPI"
+            };
+
+            var svc = resolver.Resolve<IExtensibilityService>();
+
+            // Configure all API providers that implement IApiProviderFor<CustomApiProject>
+            var apiProvidersByAttribute = svc.FindAttributeBasedApiProviders<EprinsaAPI>();
+            _project.Configure(resolver, apiProvidersByAttribute);
+
+            var authConfig = new Session.SessionAuthDbConfig
+            {
+                AuthenticationType = Config.AuthType.AllManualModules,
+                //Product = "WebDesigner",
+                SsoAuthentifiers =
+                {
+                    // Add the names of any single-sign-on authentifiers here
+                },
+                ExcludedAuthentifiers =
+                {
+                    // Add the names of any excluded authentifiers here
+                }
+            };
+
+            // To explicitly set the list allowed authentication modules,
+            // set the AuthenticationType to AuthType.Default and set
+            // the list of ManualAuthentifiers.
+
+            _project.SessionConfig = authConfig;
         }
 
         public Task<IEnumerable<IMethodSet>> GetMethodSetsAsync(CancellationToken ct = new CancellationToken())
         {
-            var methodSet = new MethodSet
-            {
-                AppId = "APIEprinsa",
-                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.AllManualModules }
-
-
-
-                };
-
-            // Include all classes in this assembly that implement IApiProvider
-            methodSet.Configure(_resolver, Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => typeof(IApiProvider).IsAssignableFrom(t))
-                .OrderBy(t => t.FullName)
-                .Select(t => (IApiProvider)t.GetConstructor(new Type[0]).Invoke(new object[0])));
-
-            return Task.FromResult<IEnumerable<IMethodSet>>(new[]
-            {
-                methodSet
-            });
+            return Task.FromResult<IEnumerable<IMethodSet>>(new[] { _project });
         }
     }
+
 }
 
 
