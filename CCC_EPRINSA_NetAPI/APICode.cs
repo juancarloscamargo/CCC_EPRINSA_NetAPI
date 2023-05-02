@@ -15,7 +15,6 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
 
         builder.AddMethod(Method.Define("sql/ObtenerDatosOTP")
         // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
-                 .AllowUnauthenticated()
              .HandleGetBySqlStatement("QER_CCC_Person_GetSecondaryEmailAddress", SqlStatementType.SqlExecute)
              .WithParameter("CentralAccount")
 
