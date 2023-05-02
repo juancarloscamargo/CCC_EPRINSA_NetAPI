@@ -19,51 +19,44 @@ using System;
 
 namespace QBM.CompositionApi
 {
-    public class EprinsaAPI : IMethodSetProvider
+    public class PluginMethodSetProvider : IPlugInMethodSetProvider
     {
-        private readonly MethodSet _project;
+        public IMethodSetProvider Build(IResolve resolver)
+        {
+            return new EprinsaAPI(resolver);
+        }
+    }
+
+    internal class EprinsaAPI : IMethodSetProvider
+    {
+        private readonly IResolve _resolver;
 
         public EprinsaAPI(IResolve resolver)
         {
-            _project = new MethodSet
-            {
-                AppId = "EprinsaAPI"
-            };
-
-            var svc = resolver.Resolve<IExtensibilityService>();
-
-            // Configure all API providers that implement IApiProviderFor<CustomApiProject>
-            var apiProvidersByAttribute = svc.FindAttributeBasedApiProviders<EprinsaAPI>();
-            _project.Configure(resolver, apiProvidersByAttribute);
-
-            var authConfig = new Session.SessionAuthDbConfig
-            {
-                AuthenticationType = Config.AuthType.FixedCredentials,
-                //Product = "WebDesigner",
-                SsoAuthentifiers =
-                {
-                    // Add the names of any single-sign-on authentifiers here
-                },
-                ExcludedAuthentifiers =
-                {
-                    // Add the names of any excluded authentifiers here
-                }
-            };
-
-            // To explicitly set the list allowed authentication modules,
-            // set the AuthenticationType to AuthType.Default and set
-            // the list of ManualAuthentifiers.
-
-            _project.SessionConfig = authConfig;
+            _resolver = resolver;
         }
 
         public Task<IEnumerable<IMethodSet>> GetMethodSetsAsync(CancellationToken ct = new CancellationToken())
         {
-            return Task.FromResult<IEnumerable<IMethodSet>>(new[] { _project });
+            var methodSet = new MethodSet
+            {
+                AppId = "EprinsaAPI",
+                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials }
+
+
+
+            };
+
+            // Include all classes in this assembly that implement IApiProvider
+            methodSet.Configure(_resolver, Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => typeof(IApiProvider).IsAssignableFrom(t))
+                .OrderBy(t => t.FullName)
+                .Select(t => (IApiProvider)t.GetConstructor(new Type[0]).Invoke(new object[0])));
+
+            return Task.FromResult<IEnumerable<IMethodSet>>(new[]
+            {
+                methodSet
+            });
         }
     }
-
 }
-
-
-
