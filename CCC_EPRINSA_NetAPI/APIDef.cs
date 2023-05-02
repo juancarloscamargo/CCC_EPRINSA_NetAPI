@@ -38,7 +38,7 @@ namespace QBM.CompositionApi
 
             var authConfig = new Session.SessionAuthDbConfig
             {
-                AuthenticationType = Config.AuthType.AllManualModules,
+                AuthenticationType = Config.AuthType.FixedCredentials,
                 //Product = "WebDesigner",
                 SsoAuthentifiers =
                 {
