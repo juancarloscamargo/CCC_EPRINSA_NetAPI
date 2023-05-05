@@ -40,8 +40,8 @@ namespace QBM.CompositionApi
         {
             var methodSet = new MethodSet
             {
-                AppId = "EprinsaAPI",
-                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials }
+                AppId = "EprinsaCVU",
+                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials}
 
 
 

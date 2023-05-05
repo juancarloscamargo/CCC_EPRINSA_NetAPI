@@ -91,6 +91,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files\One Identity\One Identity Manager\imxclient" compile-api /copyapi .\imx-api-ccc.tgz /packagename imx-api-ccc</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
