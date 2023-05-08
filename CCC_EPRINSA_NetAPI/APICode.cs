@@ -36,36 +36,13 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
           new SqlResultColumn("CustomProperty04", ValType.String)
                         ));
 
-        builder.AddMethod(Method.Define("gestionOTP")
+        
+
+        builder.AddMethod(Method.Define("solicitudotp")
+                .WithParameter("OTP_Usuario")
+                .WithParameter("OTP_Metodo")
+                .WithParameter("OTP_Metodo_Dato")
                 .HandleGet(async qr =>
-                {
-                    // Load the Person entity for the authenticated user.
-                    // Note that methods can only be called in interactive entities.
-                    var connexiondb = await qr.Session.Source().GetAsync(new DbObjectKey("CCC_EPRINSA_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4"),
-                            EntityLoadType.Interactive)
-                        .ConfigureAwait(false);
-
-                    // Load the GetCulture method. This one does not take any parameters.
-
-
-                    // Call the method and return the result (in this case, it's a string).
-//                    var DB = new VI.DB.DbObjectKey(connexiondb, UID);
- //                  var result = await VI.DB.JobGeneration.JobGen.Generate(connexiondb, "as");
-                    
-
-                    var parms = new System.Collections.Hashtable();
-
-                    parms.Add("OTP_Usuario", "juancar");
-                    parms.Add("OTP_Metodo", "1");
-                    parms.Add("OTP_Metodo_Dato", "juancarlos.camargo@gmail.com");
-     //               return result;
-                }));
-
-        builder.AddMethod(Method.Define("getinitials/{OTP_Usuario}/{OTP_Metodo}/{OTO_Metodo_Dato}")
-                .WithParameter("OTP_Usuario", typeof(string), isInQuery: false)
-                .WithParameter("OTP_Metodo", typeof(int), isInQuery: false)
-                .WithParameter("OTP_Metodo_Dato",typeof(string),isInQuery: false)
-                .HandleGet(qr =>
                 {
                     // Setup the script runner
                     var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
@@ -90,6 +67,26 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     parms.Add("OTP_Metodo_Dato", "juancarlos.camargo@gmail.com");
                     // This assumes that the script returns a string.
                     return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP", parameters) as string;
+                }));
+
+        builder.AddMethod(Method.Define("customizermethod")
+                .HandleGet(async qr =>
+                {
+                    // Load the Person entity for the authenticated user.
+                    // Note that methods can only be called in interactive entities.
+                    var accesoauth = await qr.Session.Source().GetAsync(new DbObjectKey("CCC_Eprinsa_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4"),
+                            EntityLoadType.Interactive)
+                        .ConfigureAwait(false);
+
+
+                    // Load the GetCulture method. This one does not take any parameters.
+                    //var method = accesoauth.GetMethod(qr.Session, "EVENTO", Array.Empty<object>());
+
+
+                    // Call the method and return the result (in this case, it's a string).
+
+                    //var result = VI.DB.JobGeneration.JobGen.Generate("oeoe", "lala");
+                    return accesoauth;
                 }));
 
     }
