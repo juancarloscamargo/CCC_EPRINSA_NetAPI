@@ -94,6 +94,7 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     parametros.Add("OTP_Dato", "asd");
 
                     runner.GenerateAsync(datoconexion, "Evt_Enviar_OTP",parametros);
+                    runner.EndAsync
                     
                    
                     
