@@ -14,6 +14,11 @@ using System;
 using VI.DB.Compatibility;
 using System.Security.Cryptography;
 using VI.DB.Scripting;
+using VI.DB.Implementation;
+using VI.DB.Sync;
+using System.Reflection.Emit;
+using VI.DB.JobGeneration;
+using System.Collections.Generic;
 
 public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
 {
@@ -63,10 +68,10 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     var parms = new System.Collections.Hashtable();
 
                     parms.Add("OTP_Usuario", "juancar");
-                    parms.Add("OTP_Metodo", 1);
+                    parms.Add("OTP_Metodo", "1");
                     parms.Add("OTP_Metodo_Dato", "juancarlos.camargo@gmail.com");
                     // This assumes that the script returns a string.
-                    return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP", parameters) as string;
+                    return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP", parms) as string;
                 }));
 
         builder.AddMethod(Method.Define("customizermethod")
@@ -74,19 +79,26 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                 {
                     // Load the Person entity for the authenticated user.
                     // Note that methods can only be called in interactive entities.
-                    var accesoauth = await qr.Session.Source().GetAsync(new DbObjectKey("CCC_Eprinsa_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4"),
+                    var connexion = new DbObjectKey("CCC_EPRINSA_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4");
+                    var datoconexion = await qr.Session.Source().GetAsync(new DbObjectKey("CCC_EPRINSA_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4"),
                             EntityLoadType.Interactive)
                         .ConfigureAwait(false);
 
 
-                    // Load the GetCulture method. This one does not take any parameters.
-                    //var method = accesoauth.GetMethod(qr.Session, "EVENTO", Array.Empty<object>());
+                    
 
+                    
 
-                    // Call the method and return the result (in this case, it's a string).
+                    var runner = qr.Session.StartUnitOfWork();
+                    IDictionary<string, object> parametros = new Dictionary<string, object>();
+                    parametros.Add("OTP_Dato", "asd");
 
-                    //var result = VI.DB.JobGeneration.JobGen.Generate("oeoe", "lala");
-                    return accesoauth;
+                    runner.GenerateAsync(datoconexion, "Evt_Enviar_OTP",parametros);
+                    
+                   
+                    
+                    
+                    
                 }));
 
     }
