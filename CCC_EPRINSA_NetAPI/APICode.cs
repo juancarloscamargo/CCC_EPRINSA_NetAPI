@@ -42,10 +42,13 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
 
 
         builder.AddMethod(Method.Define("obtenerDatosOTP2")
+                .WithParameter("CentralAccoount")
                 .FromTable("Person")
                 .EnableRead()
+                .WithWhereClause("CentralAccount='" & "CentralAccount" & 
                 // Only include specific columns in the result.
                 .WithResultColumns("CCC_SecondaryEmailAddress", "PhoneMobile","CustomProperty08","CustomProperty04"));
+                
 
 
         builder.AddMethod(Method.Define("solicitudotp")
@@ -79,7 +82,7 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP", parms) as string;
                 }));
 
-        builder.AddMethod(Method.Define("customizermethod")
+        builder.AddMethod(Method.Define("GeneraOTPDatUsu")
                 .HandleGet(async qr =>
                 {
                     // Load the Person entity for the authenticated user.
