@@ -34,14 +34,19 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
 
 
         // Define the result schema columns and data type
-                .WithResultColumns(
-          new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
-          //new SqlResultColumn("PhoneMobile", ValType.String),
-          new SqlResultColumn("CustomProperty08", ValType.String),
-          new SqlResultColumn("CustomProperty04", ValType.String)
-                        ));
+                .WithResultColumns(new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String))
+                .WithResultColumns(new SqlResultColumn("PhoneMobile", ValType.String))
+                .WithResultColumns(new SqlResultColumn("CustomProperty08", ValType.String))
+                .WithResultColumns(new SqlResultColumn("CustomProperty04", ValType.String))
+                        );
 
-        
+
+        builder.AddMethod(Method.Define("obtenerDatosOTP2")
+                .FromTable("Person")
+                .EnableRead()
+                // Only include specific columns in the result.
+                .WithResultColumns("CCC_SecondaryEmailAddress", "PhoneMobile","CustomProperty08","CustomProperty04"));
+
 
         builder.AddMethod(Method.Define("solicitudotp")
                 .WithParameter("OTP_Usuario")
@@ -88,13 +93,20 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     
 
                     
-
+                    
                     var runner = qr.Session.StartUnitOfWork();
                     IDictionary<string, object> parametros = new Dictionary<string, object>();
-                    parametros.Add("OTP_Dato", "asd");
+                    parametros.Add("OTP_Usuario", "juancar");
+                    parametros.Add("OTP_Metodo", "1");
+                    parametros.Add("OTP_Metodo_Dato", "juancarlos.camargo@gmail.com");
 
-                    runner.GenerateAsync(datoconexion, "Evt_Enviar_OTP",parametros);
-                    runner.EndAsync
+                    runner.Generate(datoconexion, "Evt_Enviar_OTP",parametros);
+                    runner.Commit();
+
+
+                    
+                    
+                    
                     
                    
                     
