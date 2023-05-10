@@ -27,26 +27,7 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
 
 
 
-        builder.AddMethod(Method.Define("ObtenerDatosOTP")
-        // Insert the statement name (QBMLimitedSQL.Ident_QBMLimitedSQL) and the type
-             .HandleGetBySqlStatement("QER_CCC_Person_GetSecondaryEmailAddress", SqlStatementType.SqlExecute)
-             .WithParameter("CentralAccount")
-             .WithResultColumns(new SqlResultColumn("CCC_SecondaryEmailAddress", ValType.String),
-                                   new SqlResultColumn("PhoneMobile", ValType.String),
-                                   new SqlResultColumn("CustomProperty08", ValType.String),
-                                   new SqlResultColumn("CustomProperty04", ValType.String))
-        );
-                
-
-
-        builder.AddMethod(Method.Define("obtenerDatosOTP2")
-                .WithParameter("CentralAccoount")
-                .FromTable("Person")
-                .EnableRead()
-                
-                // Only include specific columns in the result.
-                .WithResultColumns("CCC_SecondaryEmailAddress", "PhoneMobile","CustomProperty08","CustomProperty04"));
-
+        
 
 
         builder.AddMethod(Method.Define("solicitudotp")
@@ -73,36 +54,7 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
                     return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP91", parameters) as string;
                 })); ;
 
-        builder.AddMethod(Method.Define("reload")
-              .HandleGet(async (qr, ct) =>
-                {
-                    await qr.Resolver.Resolve<IBranchedMethodSetsProvider>().ReinitializeApiAsync(ct)
-                    .ConfigureAwait(false);
-                    return "API reloaded";
-                }));
-
-
-        builder.AddMethod(Method.Define("GeneraOTPDatUsu")
-                .HandleGet(async qr =>
-                {
-                    // Load the Person entity for the authenticated user.
-                    // Note that methods can only be called in interactive entities.
-                    var connexion = new DbObjectKey("CCC_EPRINSA_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4");
-                    var datoconexion = await qr.Session.Source().GetAsync(new DbObjectKey("CCC_EPRINSA_AccesoAuth", "6e562265-2119-484b-b57a-9f54aa66a2e4"),
-                            EntityLoadType.Interactive)
-                        .ConfigureAwait(false);
-                    
-                    var runner = qr.Session.StartUnitOfWork();
-                    IDictionary<string, object> parametros = new Dictionary<string, object>();
-                    parametros.Add("OTP_Usuario", "juancar");
-                    parametros.Add("OTP_Metodo", "1");
-                    parametros.Add("OTP_Metodo_Dato", "juancarlos.camargo@gmail.com");
-
-                    runner.Generate(datoconexion, "Evt_Enviar_OTP",parametros);
-                    runner.Commit();
-                    
-                    
-                }));
+        
 
     }
 }
