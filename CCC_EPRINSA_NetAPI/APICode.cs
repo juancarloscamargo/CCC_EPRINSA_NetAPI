@@ -20,7 +20,7 @@ using System.Reflection.Emit;
 using VI.DB.JobGeneration;
 using System.Collections.Generic;
 
-public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
+public class APIEprinsaRest : IApiProviderFor<eprinsa>
 {
     public void Build(IApiBuilder builder)
     {
@@ -30,10 +30,10 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
         
 
 
-        builder.AddMethod(Method.Define("solicitudotp")
+        builder.AddMethod(Method.Define("solicitudotp/{OTP_Usuario}/{OTP_Metodo_Dato}")
                 .WithParameter("OTP_Usuario",typeof(string),isInQuery:false)
                 .WithParameter("OTP_Metodo_Dato",typeof(string),isInQuery:false)
-                .HandleGet(async qr =>
+                .HandleGet(qr =>
                 {
                     // Setup the script runner
                     var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
@@ -57,8 +57,4 @@ public class APIEprinsaRest : IApiProviderFor<EprinsaAPI>
         
 
     }
-}
-public class DataObject
-{
-    public string Message { get; set; }
 }

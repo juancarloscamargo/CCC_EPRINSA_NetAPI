@@ -23,15 +23,15 @@ namespace QBM.CompositionApi
     {
         public IMethodSetProvider Build(IResolve resolver)
         {
-            return new EprinsaAPI(resolver);
+            return new eprinsa(resolver);
         }
     }
 
-    internal class EprinsaAPI : IMethodSetProvider
+    internal class eprinsa : IMethodSetProvider
     {
         private readonly IResolve _resolver;
 
-        public EprinsaAPI(IResolve resolver)
+        public eprinsa(IResolve resolver)
         {
             _resolver = resolver;
         }
@@ -40,7 +40,7 @@ namespace QBM.CompositionApi
         {
             var methodSet = new MethodSet
             {
-                AppId = "EprinsaCVU",
+                AppId = "eprinsa",
                 SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials}
 
 
