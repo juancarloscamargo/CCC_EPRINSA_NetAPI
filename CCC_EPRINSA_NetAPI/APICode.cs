@@ -30,9 +30,9 @@ public class APIEprinsaRest : IApiProviderFor<eprinsa>
         
 
 
-        builder.AddMethod(Method.Define("solicitudotp")
-                .WithParameter("OTP_Usuario",typeof(string),isInQuery:true)
-                .WithParameter("OTP_Metodo_Dato",typeof(string),isInQuery:true)
+        builder.AddMethod(Method.Define("solicitudotp/{OTP_Usuario}/{OTP_Metodo_Dato}")
+                .WithParameter("OTP_Usuario",typeof(string),isInQuery:false)
+                .WithParameter("OTP_Metodo_Dato",typeof(string),isInQuery:false)
                 .HandleGet(qr =>
                 {
                     // Setup the script runner
