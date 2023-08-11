@@ -41,7 +41,8 @@ namespace QBM.CompositionApi
             var methodSet = new MethodSet
             {
                 AppId = "eprinsa",
-                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials}
+                SessionConfig = new SessionAuthDbConfig { AuthenticationType = AuthType.FixedCredentials,
+                Product = "eprinsa"}
 
 
 
