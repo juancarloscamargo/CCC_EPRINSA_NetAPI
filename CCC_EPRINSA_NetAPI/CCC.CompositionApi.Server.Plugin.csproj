@@ -64,7 +64,7 @@
     <Reference Include="VI.Base">
       <HintPath>C:\Program Files\One Identity\One Identity Manager\VI.Base.dll</HintPath>
     </Reference>
-    <Reference Include="VI.DB, Version=8.2.0.0, Culture=neutral, PublicKeyToken=5d0660cde5b231fd, processorArchitecture=MSIL">
+    <Reference Include="VI.DB, Version=9.1.0.0, Culture=neutral, PublicKeyToken=5d0660cde5b231fd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\One Identity\One Identity Manager\VI.DB.dll</HintPath>
     </Reference>
