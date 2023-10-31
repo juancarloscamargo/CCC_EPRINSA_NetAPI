@@ -31,6 +31,7 @@ public class APIEprinsaRest : IApiProviderFor<eprinsa>
 
 
         builder.AddMethod(Method.Define("solicitudotp")
+                .AllowUnauthenticated(true)
                 .WithParameter("OTP_Usuario",typeof(string),isInQuery:true)
                 .WithParameter("OTP_Metodo_Dato",typeof(string),isInQuery:true)
                 .HandleGet(qr =>
