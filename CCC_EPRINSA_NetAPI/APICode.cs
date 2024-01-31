@@ -20,7 +20,7 @@ using System.Reflection.Emit;
 using VI.DB.JobGeneration;
 using System.Collections.Generic;
 
-public class APIEprinsaRest : IApiProviderFor<eprinsa>
+public class APIEprinsaRest : IApiProviderFor<QER.CompositionApi.Portal.PortalApiProject>
 {
     public void Build(IApiBuilder builder)
     {
