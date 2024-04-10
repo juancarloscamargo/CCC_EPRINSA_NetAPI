@@ -55,6 +55,14 @@ public class APIEprinsaRest : IApiProviderFor<QER.CompositionApi.Portal.PortalAp
                     return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP91", parameters) as string;
                 })); ;
 
+
+        builder.AddMethod(Method.Define("GAPUserLicense")
+            .FromTable("GAPUserInPaSku")
+            .EnableRead()
+            .WithAllColumns());
+              
+                
+
         
 
     }
