@@ -42,6 +42,10 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="QBM.CompositionApi, Version=9.2.0.0, Culture=neutral, PublicKeyToken=5d0660cde5b231fd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\One Identity\One Identity Manager\QBM.CompositionApi.dll</HintPath>
+    </Reference>
     <Reference Include="QBM.CompositionApi.Server">
       <HintPath>C:\Program Files\One Identity\One Identity Manager\QBM.CompositionApi.Server.dll</HintPath>
     </Reference>
