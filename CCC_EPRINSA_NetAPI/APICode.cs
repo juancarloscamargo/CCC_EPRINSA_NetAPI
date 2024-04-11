@@ -74,4 +74,16 @@ namespace QBM.CompositionApi
 
         }
     }
+    // This class defines the type of data object that will be sent to the client.
+    public class DataObject
+    {
+        public string Message { get; set; }
+    }
+
+    // This class defines the type of data object that will be sent from the client to the server.
+    public class PostedMessage
+    {
+        public string Input { get; set; }
+    }
+
 }
