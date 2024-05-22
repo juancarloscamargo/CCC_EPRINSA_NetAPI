@@ -22,6 +22,7 @@ using System.Collections.Generic;
 
 using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Definition;
+using VI.Base.Logging;
 
 [assembly: QBM.CompositionApi.PlugIns.Module("CCC")]
 
@@ -67,6 +68,29 @@ namespace QBM.CompositionApi
                 .FromTable("GAPUserInPaSku")
                 .EnableRead()
                 .WithAllColumns());
+
+            
+
+
+            builder.AddMethod(Method
+                .Define("targetsystem/gapuser/nuevaCuenta")
+                .FromTable("GAPUser")
+                .EnableRead()
+                .WithAllColumns()
+                .With(
+                    m => m.Crud.EntityType = EntityType.Interactive
+                 )
+                .With(
+                    m =>
+                    {
+                        m.EnableDataModelApi = true;
+                        m.EnableGroupingApi = true;
+                    }
+                )
+                .EnableUpdate()
+                .EnableCreate()
+                .WithWritableAllColumns()
+             );
 
 
 
