@@ -96,10 +96,10 @@ namespace QBM.CompositionApi
                     // Foreign-key parent table name
                     "Person",
 
-                    // Column name in the Department table
+                    // Columna en la tabla destino
                     "UID_Person",
 
-                    // Connecting column name in the Person table
+                    // Columna en la tabla origen
                     "UID_Person")
                    )
                 .EnableUpdate()
