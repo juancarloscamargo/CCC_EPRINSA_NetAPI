@@ -22,6 +22,7 @@ using System.Collections.Generic;
 
 using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Definition;
+using QBM.CompositionApi.DataSources;
 using VI.Base.Logging;
 
 [assembly: QBM.CompositionApi.PlugIns.Module("CCC")]
@@ -87,6 +88,20 @@ namespace QBM.CompositionApi
                         m.EnableGroupingApi = true;
                     }
                 )
+                   .WithCalculatedProperties(new FkProperty(
+
+                    // Property name for the client data model
+                    "IdentidadAsociada",
+
+                    // Foreign-key parent table name
+                    "Person",
+
+                    // Column name in the Department table
+                    "UID_Person",
+
+                    // Connecting column name in the Person table
+                    "UID_Person")
+                   )
                 .EnableUpdate()
                 .EnableCreate()
                 .WithWritableAllColumns()
