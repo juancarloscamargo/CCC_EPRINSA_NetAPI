@@ -75,19 +75,9 @@ namespace QBM.CompositionApi
 
             builder.AddMethod(Method
                 .Define("targetsystem/gapuser/nuevaCuenta")
-                .FromTable("GAPUser")
-                .EnableRead()
-                .WithAllColumns()
-                .With(
-                    m => m.Crud.EntityType = EntityType.Interactive
-                 )
-                .With(
-                    m =>
-                    {
-                        m.EnableDataModelApi = true;
-                        m.EnableGroupingApi = true;
-                    }
-                )
+                .FromTable("GAPUser")                
+                .EnableRead()                
+                   .WithAllColumns()
                    .WithCalculatedProperties(new FkProperty(
 
                     // Property name for the client data model
@@ -102,22 +92,23 @@ namespace QBM.CompositionApi
                     // Columna en la tabla origen
                     "UID_Person")
                    )
+                .With(
+                    m =>
+                    {
+                        m.EnableDataModelApi = true;
+                        m.EnableGroupingApi = true;
+                    }
+                )
                 .EnableUpdate()
+                  .WithWritableAllColumns()
+                  .With(
+                       m => m.Crud.EntityType = EntityType.Interactive
+                   )
+                    
                 .EnableCreate()
-                .WithWritableAllColumns()
+                    .WithWritableAllColumns()
              );
 
-            builder.AddMethod(Method
-        .Define("targetsystem/gapuser/cuentainteractiva")
-        .FromTable("GAPUser")
-        .EnableRead()
-        .WithAllColumns()
-        .EnableUpdate()
-        .WithWritableAllColumns()
-
-        // This call will enable interactive writing to all columns.
-        // Note that object permission constraints still apply and cannot be overridden.
-        .With(m => m.Crud.EntityType = EntityType.Interactive));
         
 
 
