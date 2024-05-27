@@ -107,11 +107,22 @@ namespace QBM.CompositionApi
                 .WithWritableAllColumns()
              );
 
+            builder.AddMethod(Method
+        .Define("targetsystem/gapuser/cuentainteractiva")
+        .FromTable("GAPUser")
+        .EnableRead()
+        .WithAllColumns()
+        .EnableUpdate()
+        .WithWritableAllColumns()
+
+        // This call will enable interactive writing to all columns.
+        // Note that object permission constraints still apply and cannot be overridden.
+        .With(m => m.Crud.EntityType = EntityType.Interactive));
+        
 
 
 
-
-        }
+    }
     }
     // This class defines the type of data object that will be sent to the client.
     public class DataObject
