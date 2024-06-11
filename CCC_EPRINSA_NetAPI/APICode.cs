@@ -64,6 +64,28 @@ namespace QBM.CompositionApi
                         return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP91", parameters) as string;
                     })); ;
 
+            builder.AddMethod(Method.Define("ResetGAP")
+                    .WithParameter("GAPXObjectKey", typeof(string), isInQuery: true)
+                    .HandleGet(qr =>
+                    {
+                        // Setup the script runner
+                        var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
+                        var runner = new ScriptRunner(scriptClass, qr.Session);
+
+                        // Add any script input parameters to this array.
+                        // In this example, the script parameters are defined as
+                        // URL parameters, and their values must be supplied
+                        // by the client. This does not have to be the case.
+                        var parameters = new object[]
+                        {
+                        qr.Parameters.Get<string>("GAPXObjectKey"),
+                        "Password"
+                        };
+
+                        Console.Write("Por aqui bien");
+                        return runner.Eval("CCC_EPRINSA_CreatePassword", parameters) as string;
+                    })); 
+
 
             builder.AddMethod(Method.Define("targetsystem/gappasku/GAPUserLicense")
                 .FromTable("GAPUserInPaSku")
