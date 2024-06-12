@@ -83,7 +83,7 @@ namespace QBM.CompositionApi
                         };
 
                         Console.Write("Por aqui bien");
-                        return runner.Eval("CCC_EPRINSA_CreatePassword", parameters) as string;
+                        return runner.Eval("CCC_EPRINSA_ResetGAPPassword", parameters) as string;
                     })); 
 
 
