@@ -34,36 +34,7 @@ namespace QBM.CompositionApi
         public void Build(IApiBuilder builder)
         {
 
-
-
-
-
-
-            builder.AddMethod(Method.Define("solicitudotp")
-                    .AllowUnauthenticated(true)
-                    .WithParameter("OTP_Usuario", typeof(string), isInQuery: true)
-                    .WithParameter("OTP_Metodo_Dato", typeof(string), isInQuery: true)
-                    .HandleGet(qr =>
-                    {
-                        // Setup the script runner
-                        var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
-                        var runner = new ScriptRunner(scriptClass, qr.Session);
-
-                        // Add any script input parameters to this array.
-                        // In this example, the script parameters are defined as
-                        // URL parameters, and their values must be supplied
-                        // by the client. This does not have to be the case.
-                        var parameters = new object[]
-                        {
-                        qr.Parameters.Get<string>("OTP_Usuario"),
-                        qr.Parameters.Get<string>("OTP_Metodo_Dato"),
-
-                        };
-
-
-                        return runner.Eval("CCC_EPRINSA_RespondeSolicitudOTP91", parameters) as string;
-                    })); ;
-
+                                    
             builder.AddMethod(Method.Define("ResetGAP")
                     .WithParameter("GAPXObjectKey", typeof(string), isInQuery: true)
                     .HandleGet(qr =>
@@ -71,18 +42,13 @@ namespace QBM.CompositionApi
                         // Setup the script runner
                         var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
                         var runner = new ScriptRunner(scriptClass, qr.Session);
-
-                        // Add any script input parameters to this array.
-                        // In this example, the script parameters are defined as
-                        // URL parameters, and their values must be supplied
-                        // by the client. This does not have to be the case.
                         var parameters = new object[]
                         {
                         qr.Parameters.Get<string>("GAPXObjectKey"),
                         "Password"
                         };
 
-                        Console.Write("Por aqui bien");
+                        
                         return runner.Eval("CCC_EPRINSA_ResetGAPPassword", parameters) as string;
                     })); 
 
@@ -135,18 +101,8 @@ namespace QBM.CompositionApi
 
 
 
+         }
     }
-    }
-    // This class defines the type of data object that will be sent to the client.
-    public class DataObject
-    {
-        public string Message { get; set; }
-    }
-
-    // This class defines the type of data object that will be sent from the client to the server.
-    public class PostedMessage
-    {
-        public string Input { get; set; }
-    }
+    
 
 }
