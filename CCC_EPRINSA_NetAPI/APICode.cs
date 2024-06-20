@@ -35,7 +35,7 @@ namespace QBM.CompositionApi
         {
 
                                     
-            builder.AddMethod(Method.Define("ResetGAP")
+            builder.AddMethod(Method.Define("ccc/resetGAP")
                     .WithParameter("GAPXObjectKey", typeof(string), isInQuery: true)
                     .HandleGet(qr =>
                     {
@@ -53,7 +53,7 @@ namespace QBM.CompositionApi
                     })); 
 
 
-            builder.AddMethod(Method.Define("targetsystem/gappasku/GAPUserLicense")
+            builder.AddMethod(Method.Define("ccc/GAPUserLicense")
                 .FromTable("GAPUserInPaSku")
                 .EnableRead()
                 .WithAllColumns());
@@ -62,7 +62,7 @@ namespace QBM.CompositionApi
 
 
             builder.AddMethod(Method
-                .Define("targetsystem/gapuser/nuevaCuenta")
+                .Define("ccc/nuevaCuenta")
                 .FromTable("GAPUser")                
                 .EnableRead()                
                    .WithAllColumns()
