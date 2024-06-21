@@ -27,14 +27,7 @@ using VI.Base.Logging;
 using VI.Base.Encryption;
 
 [assembly: QBM.CompositionApi.PlugIns.Module("CCC")]
-class Licencias
-{
-    string EnterpriseStarter;
-    string FrontlineStarter;
-    string BusinesStandard;
-    string BusinessPlus;
-    string CloudIdentity;
-}
+
 
 
 
@@ -72,7 +65,7 @@ namespace QBM.CompositionApi
                         // Setup the script runner
                         var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
                         var runner = new ScriptRunner(scriptClass, qr.Session);                    
-                        return runner.Eval("CCC_EPRINSA_ResetGAPPassword") as Licencias;
+                        return runner.Eval("GAPLicenciasStock") as String[];
                     }));
 
             builder.AddMethod(Method.Define("ccc/GAPUserLicense")
