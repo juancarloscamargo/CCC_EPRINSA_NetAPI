@@ -24,11 +24,24 @@ using QBM.CompositionApi.ApiManager;
 using QBM.CompositionApi.Definition;
 using QBM.CompositionApi.DataSources;
 using VI.Base.Logging;
+using VI.Base.Encryption;
 
 [assembly: QBM.CompositionApi.PlugIns.Module("CCC")]
+class Licencias
+{
+    string EnterpriseStarter;
+    string FrontlineStarter;
+    string BusinesStandard;
+    string BusinessPlus;
+    string CloudIdentity;
+}
+
+
 
 namespace QBM.CompositionApi
 {
+    
+
     public class APIEprinsaRest : IApiProviderFor<QER.CompositionApi.Portal.PortalApiProject>
     {
         public void Build(IApiBuilder builder)
@@ -50,8 +63,17 @@ namespace QBM.CompositionApi
 
                         
                         return runner.Eval("CCC_EPRINSA_ResetGAPPassword", parameters) as string;
-                    })); 
+                    }));
 
+            builder.AddMethod(Method.Define("ccc/GAPStockLicencias")
+                    
+                    .HandleGet(qr =>
+                    {
+                        // Setup the script runner
+                        var scriptClass = qr.Session.Scripts().GetScriptClass(ScriptContext.Scripts);
+                        var runner = new ScriptRunner(scriptClass, qr.Session);                    
+                        return runner.Eval("CCC_EPRINSA_ResetGAPPassword") as Licencias;
+                    }));
 
             builder.AddMethod(Method.Define("ccc/GAPUserLicense")
                 .FromTable("GAPUserInPaSku")
